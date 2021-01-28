@@ -17,20 +17,15 @@ $($("#MCButtons").children()[Math.floor(Math.random() * MCQuestion.incorrect_ans
 
 function checkAnswer(event)
 {
-    console.dir(event);
-    // console.log(MCQuestion.correct_answer);
-    // console.log(event.srcElement.innerHTML);
     if (MCQuestion.correct_answer == event.srcElement.innerHTML)
     {
-         $(event.srcElement).css({'backgroundColor': 'green'})
+        $(event.srcElement).css({'backgroundColor': 'green'});
         $("#multipleChoice").after("<p> <b> Correct! </b> </p>");
     }
     else
     {
-        $(event.srcElement).css({'backgroundColor': 'red'})
+        $(event.srcElement).css({'backgroundColor': 'red'});
         $("#multipleChoice").after("<p> <b> Incorrect </b> </p>");
-        // $($(event.srcElement.parent())).children().prop('disabled', true);
-        console.log("Wrong")
     }
     $($($(event.srcElement).parent()).children()).prop('disabled', true);
 }
@@ -39,10 +34,23 @@ function checkAnswer(event)
 do {
     var FRQuestion = MCRepository[Math.floor(Math.random() * MCRepository.length)];
 
-} while (MCQuestion == FRQuestion)
+} while (MCQuestion == FRQuestion);
 
 // Display the question
 $('#freeResponse').html(FRQuestion.question);
 
-$("#FRForm").click(function(event){console.dir(event)})
-$('#FRSubmit').click(function(){console.log($('#FRAnswer').val())})
+$("#FRForm").click(function(event){console.dir(event)});
+$('#FRSubmit').click(function(){
+    answer = $('#FRAnswer').val();
+    if (answer.toLowerCase() == FRQuestion.correct_answer.toLowerCase())
+    {
+        $('#FRAnswer').css({'backgroundColor': 'green'});
+        $('#freeResponse').after("<p> <b> Correct! </b> </p>");
+    }
+    else
+    {
+        $('#FRAnswer').css({'backgroundColor': 'red'});
+        $('#freeResponse').after("<p> <b> Incorrect </b> </p>");
+    }
+    $('#FRSubmit').prop('disabled', true);
+})
